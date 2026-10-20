@@ -3,8 +3,6 @@
 library(tidyverse)
 library(lme4)
 library(DHARMa)
-library(performance)
-library(see)
 library(car)
 library(emmeans)
 
@@ -121,7 +119,7 @@ fem_attack_pred_2 <- emmeans(female_attack_model_2, ~ treatment | day,
 
 fem_attack_pred_df_2 <- as.data.frame(fem_attack_pred_2) # Convert to data frame
 
-# Plot predicted probabilities from model (EXTRA FIGURE FOR WHEN FIGHTS ARE INCLUDED)
+# Plot predicted probabilities from model (Fig S1)
 ggplot(fem_attack_pred_df_2, 
        aes(x = day, y = prob, colour = treatment, fill = treatment)) +
        geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.1, color = NA) + # 95% CIs
@@ -150,6 +148,23 @@ cor.test(combined_data$male_mount_rate,
          combined_data$female_attack_rate,
          method = "spearman")
 
+#### Same analyses using combined data including fights
+combined_data_with_fights <- read.csv("data/combined_data_with_fights.csv")
+                      
+# PLOT (Fig S2)
+ggplot(combined_data_with_fights, aes(x = female_attack_rate, y = male_mount_rate, color = treatment)) + 
+       geom_smooth(method = "lm", se = FALSE) + # line
+       geom_point(size = 2, alpha = 0.6, # points
+                  position = position_jitter(width = 0.005, height = 0.005)) + #tiny bit of jitter
+       labs(x = "Female attack rate", y = "Male mount rate", 
+       colour = "Body condition") +
+       My_Theme + scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange"))
+
+# Spearman's rank correlation test
+cor.test(combined_data_with_fights$male_mount_rate,
+         combined_data_with_fights$female_attack_rate,
+         method = "spearman")
+
 # Additional models to confirm results
 # Modelling variable as a binomial taking into account number of observations to see if it makes a diff
 # Female attack rate as binomial response variable
@@ -167,10 +182,4 @@ cor.test(combined_data$male_mount_rate,
 #plot(simulateResiduals(corr_model_2))
 
 #Anova(corr_model_2) # Result: no sig correlation
-
-
-
-
-
-
 
