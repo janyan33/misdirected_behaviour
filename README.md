@@ -1,11 +1,8 @@
-# misdirected_behaviour
-Data and code to reproduce analyses for "insert title of misdirected behaviour manuscript"
-
-## Analyses (misdirected_behaviours_clean.R)
+# Analyses (misdirected_behaviours_clean.R)
 This R script contains all of the code needed to reproduce the statistical analyses and figures presented in the manuscript.
 
-## Data
-# Mounts per day (mounts_per_day.csv)
+# Data
+### Mounts per day (mounts_per_day.csv)
 This csv file contains information on how many mounts each male performed each day of the experiment along with the ID and treatment of each male. Every unique male appears five times, representing the five days of the experiment. Male IDs were re-used between replicates. Description of each column below:
 
 **replicate:** represents which replicate the male was from (ranges from 1-6)
