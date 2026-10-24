@@ -55,6 +55,14 @@ ggplot(male_mount_pred_df,
        scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
        scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange")) + My_Theme
 
+## See what's going on with total mounts over time
+ggplot(data = mount_summary_days, 
+       aes(x = day, y = total_mounts, color = treatment, fill = treatment)) + 
+       geom_smooth(method = "lm", se = FALSE) + 
+       geom_point(alpha = 0.25) + theme_classic() +
+       ylab("Number of mounts directed at females") + xlab("Day") + 
+       scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
+       scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange"))
 
 ############################### Female attacks ################################
 attack_summary_days <- read.csv("data/attacks_per_day.csv") |> 
@@ -119,7 +127,7 @@ fem_attack_pred_2 <- emmeans(female_attack_model_2, ~ treatment | day,
 
 fem_attack_pred_df_2 <- as.data.frame(fem_attack_pred_2) # Convert to data frame
 
-# Plot predicted probabilities from model (Fig S1)
+# Plot predicted probabilities from model
 ggplot(fem_attack_pred_df_2, 
        aes(x = day, y = prob, colour = treatment, fill = treatment)) +
        geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.1, color = NA) + # 95% CIs
@@ -127,6 +135,16 @@ ggplot(fem_attack_pred_df_2,
        scale_y_continuous(limits = c(0, 0.65), breaks = seq(0, 0.65, by = 0.1)) +
        labs(x = "Day", y = "Predicted probability of attacking a female",
        colour = "Body condition", fill = "Body condition") +
+       scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
+       scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange")) + 
+       My_Theme
+
+## See what's going on with total attacks over time
+ggplot(data = attack_summary_days, 
+       aes(x = day, y = total_attacks, color = treatment, fill = treatment)) + 
+       geom_smooth(method = "lm", se = FALSE) + 
+       geom_point(alpha = 0.25) +
+       ylab("Proportion of attacks directed at other females") + xlab("Day") + 
        scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
        scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange")) + 
        My_Theme
@@ -151,7 +169,7 @@ cor.test(combined_data$male_mount_rate,
 #### Same analyses using combined data including fights
 combined_data_with_fights <- read.csv("data/combined_data_with_fights.csv")
                       
-# PLOT (Fig S2)
+# PLOT
 ggplot(combined_data_with_fights, aes(x = female_attack_rate, y = male_mount_rate, color = treatment)) + 
        geom_smooth(method = "lm", se = FALSE) + # line
        geom_point(size = 2, alpha = 0.6, # points
