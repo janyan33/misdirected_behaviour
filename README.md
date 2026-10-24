@@ -42,13 +42,14 @@ This csv file contains information on how many attacks each male performed each 
 This csv file is identical to the one above (attacks_per_day.csv) except male escalated contest data is included. Specifically, for each escalated grappling fight that occurred between a dyad of males, it was scored as one attack exhibited by each male against the other. Otherwise, the column contents are identical to the above csv so I did not repeat the descriptions here. 
 
 ### Data combined (combined_data.csv)
-This csv was used to run the Spearman's correlation test and plot the association between male mounting rate and female attack rate. Most of the columns overlap with the previous two csv files as this one just combines the data. The attack columns here do not include male escalated fights. The two new columns are described here:
+This csv was used to run the Spearman's correlation test and plot the association between male mounting rate and female attack rate. Instead of showing one value per day per male, this data is collapsed across days. For example, total mounts represents total number of mounts a male performed over the entire 5-day observation period. Otherwise, most column's information overlap with the previous two csv files as this one just combines the data. The attack columns here do not include male escalated fights. The two new columns are described here:
 
 **male_mount_rate:** calculated as mounts directed at males divided by total mounts
 
 **female_attack_rate:** calculated as attacks directed at females divided by total attacks
 
-
+### Data combined with fight data included (combined_data_with_fights.csv)
+Same as the combined_data.csv file except male escalated contest data is included in the male attack and total attack columns. 
 
 
 
