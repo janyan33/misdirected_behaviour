@@ -59,10 +59,20 @@ ggplot(male_mount_pred_df,
 ggplot(data = mount_summary_days, 
        aes(x = day, y = total_mounts, color = treatment, fill = treatment)) + 
        geom_smooth(method = "lm", se = FALSE) + 
-       geom_point(alpha = 0.25) + theme_classic() +
+       geom_point(alpha = 0.25) + My_Theme +
+       ylab("Total mounts") + xlab("Day") + 
+       scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
+       scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange"))
+
+## See what's going on with female mounts over time
+ggplot(data = mount_summary_days, 
+       aes(x = day, y = female_mounts, color = treatment, fill = treatment)) + 
+       geom_smooth(method = "lm", se = FALSE) + 
+       geom_point(alpha = 0.25) + My_Theme +
        ylab("Number of mounts directed at females") + xlab("Day") + 
        scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
        scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange"))
+
 
 ############################### Female attacks ################################
 attack_summary_days <- read.csv("data/attacks_per_day.csv") |> 
@@ -144,7 +154,17 @@ ggplot(data = attack_summary_days,
        aes(x = day, y = total_attacks, color = treatment, fill = treatment)) + 
        geom_smooth(method = "lm", se = FALSE) + 
        geom_point(alpha = 0.25) +
-       ylab("Proportion of attacks directed at other females") + xlab("Day") + 
+       ylab("Total attacks") + xlab("Day") + 
+       scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
+       scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange")) + 
+       My_Theme
+
+## See what's going on with male attacks over time
+ggplot(data = attack_summary_days, 
+       aes(x = day, y = male_attacks, color = treatment, fill = treatment)) + 
+       geom_smooth(method = "lm", se = FALSE) + 
+       geom_point(alpha = 0.25) +
+       ylab("Number of attacks directed at other males") + xlab("Day") + 
        scale_color_manual(values = c("good" = "#023e8a", "poor" = "orange")) +
        scale_fill_manual(values = c("good" = "#023e8a", "poor" = "orange")) + 
        My_Theme
